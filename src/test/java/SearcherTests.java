@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import com.example.Searcher;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class SearcherTests {
