@@ -10,6 +10,9 @@ public class Article {
 
     private Calculator calculator = new Calculator();
 
+    public Article() {
+    }
+
     public Article(String name, int quantity, double price, double discount) {
         this.name = name;
         this.quantity = quantity;
