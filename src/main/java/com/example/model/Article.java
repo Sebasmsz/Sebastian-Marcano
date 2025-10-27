@@ -1,10 +1,13 @@
 package com.example.model;
 
 import com.example.Calculator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Article {
     private String name;
     private int quantity;
+    
+    @JsonProperty("unitPrice")
     private double price;
     private double discount; // en porcentaje (0–100)
 
