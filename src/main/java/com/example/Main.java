@@ -25,6 +25,9 @@ public class Main {
                     order.getGrossTotal(),
                     order.getDiscountedTotal());
         }
+
+        com.example.view.OrderView view = new com.example.view.OrderView();
+    new com.example.controller.OrderController(view, orders);
     }
 
     public static List<Order> loadOrdersFromJson(String resourcePath) {

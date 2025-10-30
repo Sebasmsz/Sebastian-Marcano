@@ -9,7 +9,7 @@ public class Article {
     
     @JsonProperty("unitPrice")
     private double price;
-    private double discount; // en porcentaje (0–100)
+    private double discount;
 
     private Calculator calculator = new Calculator();
 
