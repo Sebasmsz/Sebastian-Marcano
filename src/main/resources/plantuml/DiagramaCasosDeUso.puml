@@ -1,0 +1,12 @@
+@startuml
+actor Usuario
+
+rectangle "Order Management System" {
+    usecase "Buscar pedido" as UC1
+    usecase "Visualizar información del pedido" as UC2
+}
+
+Usuario --> UC1
+UC1 --> UC2
+
+@enduml
