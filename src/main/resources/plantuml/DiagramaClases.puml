@@ -1,0 +1,77 @@
+@startuml
+package "com.example.model" {
+    class Article {
+        - name : String
+        - quantity : int
+        - price : double
+        - discount : double
+        - calculator : Calculator
+        + getGrossAmount() : double
+        + getDiscountedAmount() : double
+    }
+
+    class Order {
+        - id : String
+        - articles : List<Article>
+        + getGrossTotal() : double
+        + getDiscountedTotal() : double
+    }
+}
+
+package "com.example.controller" {
+    class OrderController {
+        - view : OrderView
+        - orders : List<Order>
+        - searcher : Searcher
+        - searchOrder() : void
+    }
+}
+
+package "com.example.view" {
+    class OrderView {
+        - searchField : JTextField
+        - searchButton : JButton
+        - resultArea : JTextArea
+        + getSearchId() : String
+        + getSearchButton() : JButton
+        + displayOrder(o:Order, rate:double) : void
+        + displayMessage(msg:String) : void
+    }
+}
+
+package "com.example" {
+    class Calculator {
+        + multiply(int,int) : int
+        + concat(String,String) : String
+        + sum(double,double) : double
+        + discount(double,double) : double
+        + calculateTotal(List<Double>) : double
+    }
+
+    class Searcher {
+        + searchExactPhrase(String, List<String>) : boolean
+        + searchWord(String, List<String>) : boolean
+        + getWordByIndex(List<String>, int) : String
+        + searchByPrefix(String, List<String>) : List<String>
+        + filterByKeyword(String, List<String>) : List<String>
+        + findById(List<Order>, String) : Order
+    }
+
+    class Main {
+        + main(String[]) : void
+        + loadOrdersFromJson(String) : List<Order>
+    }
+}
+
+' Relaciones
+Order "1" --> "*" Article : contiene >
+OrderController --> OrderView : usa >
+OrderController --> Searcher : usa >
+OrderController --> Order : gestiona >
+OrderView --> Order : muestra >
+Article --> Calculator : usa >
+Main --> Order : carga >
+Main --> OrderView : crea >
+Main --> OrderController : crea >
+
+@enduml

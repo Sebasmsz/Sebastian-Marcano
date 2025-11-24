@@ -1,0 +1,18 @@
+@startuml
+actor User
+
+User -> OrderView : Clic en botón Search
+OrderView -> OrderController : actionPerformed()
+
+OrderController -> OrderView : getSearchId()
+OrderController -> Searcher : findById(orders, id)
+
+alt Pedido encontrado
+    Searcher --> OrderController : Order
+    OrderController -> OrderView : displayOrder(order, 1.0)
+else Pedido NO encontrado
+    Searcher --> OrderController : null
+    OrderController -> OrderView : displayMessage("Pedido no encontrado")
+end
+
+@enduml

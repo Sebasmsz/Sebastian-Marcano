@@ -47,7 +47,7 @@ public class OrderController {
             view.displayOrder(foundOrder, 1.0);
         } else {
             log.warn("Pedido no encontrado con ID: {}", id);
-            view.displayMessage("Order not found.");
+            view.displayMessage("Pedido no encontrado con ID: " + id);
         }
     }
 }
