@@ -11,8 +11,13 @@ import com.example.model.Order;
 import com.example.Searcher;
 import com.example.view.OrderView;
 
+import com.example.Service.ExchangeRateService;
+
+
 public class OrderController {
     private static final Logger log = LoggerFactory.getLogger(OrderController.class);
+    private ExchangeRateService exchangeService = new ExchangeRateService();
+
 
     private OrderView view;
     private List<Order> orders;
@@ -33,21 +38,25 @@ public class OrderController {
     }
 
     private void searchOrder() {
-        String id = view.getSearchId().trim();
-        if (id.isEmpty()) {
-            view.displayMessage("Please enter an order ID.");
-            return;
-        }
-
-        log.info("Buscando pedido con ID: {}", id);
-        Order foundOrder = searcher.findById(orders, id);
-
-        if (foundOrder != null) {
-            log.info("Pedido encontrado: {}", foundOrder.getId());
-            view.displayOrder(foundOrder, 1.0);
-        } else {
-            log.warn("Pedido no encontrado con ID: {}", id);
-            view.displayMessage("Pedido no encontrado con ID: " + id);
-        }
+    String id = view.getSearchId().trim();
+    if (id.isEmpty()) {
+        view.displayMessage("Please enter an order ID.");
+        return;
     }
+
+    log.info("Buscando pedido con ID: {}", id);
+    Order foundOrder = searcher.findById(orders, id);
+
+    if (foundOrder != null) {
+        log.info("Pedido encontrado: {}", foundOrder.getId());
+
+        double eurToUsd = exchangeService.getEuroToUsdRate();
+        log.info("Tipo de cambio EUR/USD obtenido: {}", eurToUsd);
+
+        view.displayOrder(foundOrder, eurToUsd);
+
+    } else {
+        log.warn("Pedido no encontrado con ID: {}", id);
+        view.displayMessage("Pedido no encontrado con ID: " + id);
+    }}
 }
